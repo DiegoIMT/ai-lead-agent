@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Lead Qualification Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <!-- ── Header ────────────────────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Lead<em>Agent</em></span>
+      </div>
+      <nav class="header-nav">
+        <button class="nav-btn active" data-section="form">New Lead</button>
+        <button class="nav-btn" data-section="history">History</button>
+      </nav>
+      <div class="header-badge">
+        <span class="pulse-dot"></span>
+        <span>Agent Online</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main ──────────────────────────────────────────────────────────────── -->
+  <main class="main-layout">
+
+    <!-- ═══ SECTION: Form ═══════════════════════════════════════════════════ -->
+    <section id="section-form" class="section active">
+      <div class="section-header">
+        <h1>Qualify a New Lead</h1>
+        <p class="section-sub">Submit lead data to the agent pipeline: validate → enrich → score → generate follow-up → dispatch webhook</p>
+      </div>
+
+      <div class="form-grid">
+        <!-- Left: Form -->
+        <div class="form-card">
+          <div class="card-header">
+            <span class="card-icon">01</span>
+            <h2>Lead Intake</h2>
+            <button class="btn-ghost" id="btn-load-sample">Load Sample</button>
+          </div>
+
+          <form id="lead-form" novalidate>
+            <div class="form-section-label">Contact</div>
+            <div class="form-row two-col">
+              <div class="field">
+                <label for="fullName">Full Name <span class="req">*</span></label>
+                <input type="text" id="fullName" name="fullName" placeholder="Sarah Chen" />
+              </div>
+              <div class="field">
+                <label for="email">Email <span class="req">*</span></label>
+                <input type="email" id="email" name="email" placeholder="sarah@techcorp.com" />
+              </div>
+            </div>
+
+            <div class="form-section-label">Company</div>
+            <div class="form-row two-col">
+              <div class="field">
+                <label for="company">Company <span class="req">*</span></label>
+                <input type="text" id="company" name="company" placeholder="TechCorp Inc." />
+              </div>
+              <div class="field">
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" name="jobTitle" placeholder="VP of Engineering" />
+              </div>
+            </div>
+
+            <div class="form-row two-col">
+              <div class="field">
+                <label for="website">Website</label>
+                <input type="url" id="website" name="website" placeholder="https://techcorp.com" />
+              </div>
+              <div class="field">
+                <label for="industry">Industry</label>
+                <select id="industry" name="industry">
+                  <option value="">Select industry</option>
+                  <option>SaaS</option>
+                  <option>Fintech</option>
+                  <option>Healthcare</option>
+                  <option>E-commerce</option>
+                  <option>Manufacturing</option>
+                  <option>Consulting</option>
+                  <option>Technology</option>
+                  <option>Marketing Tech</option>
+                  <option>Logistics</option>
+                  <option>Real Estate</option>
+                  <option>Education</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row two-col">
+              <div class="field">
+                <label for="companySize">Company Size</label>
+                <select id="companySize" name="companySize">
+                  <option value="">Select size</option>
+                  <option value="1-10">1–10 employees</option>
+                  <option value="11-50">11–50 employees</option>
+                  <option value="51-200">51–200 employees</option>
+                  <option value="201-500">201–500 employees</option>
+                  <option value="501-1000">501–1,000 employees</option>
+                  <option value="1001-5000">1,001–5,000 employees</option>
+                  <option value="5000+">5,000+ employees</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="country">Country</label>
+                <input type="text" id="country" name="country" placeholder="United States" />
+              </div>
+            </div>
+
+            <div class="form-section-label">Lead Details</div>
+            <div class="form-row">
+              <div class="field">
+                <label for="leadSource">Lead Source</label>
+                <select id="leadSource" name="leadSource">
+                  <option value="">Select source</option>
+                  <option>Website</option>
+                  <option>LinkedIn</option>
+                  <option>Referral</option>
+                  <option>Cold Outreach</option>
+                  <option>Event</option>
+                  <option>Inbound</option>
+                  <option>Paid Ads</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="field">
+                <label for="comments">Comments / Needs</label>
+                <textarea id="comments" name="comments" rows="4"
+                  placeholder="Describe the lead's main pain point, goal, or reason for inquiry..."></textarea>
+              </div>
+            </div>
+
+            <div id="form-errors" class="form-errors hidden"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-primary" id="btn-submit">
+                <span class="btn-text">Run Agent Pipeline</span>
+                <span class="btn-icon">→</span>
+              </button>
+              <button type="button" class="btn-secondary" id="btn-reset">Reset</button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right: Pipeline Visualization -->
+        <div class="pipeline-sidebar">
+          <div class="pipeline-card">
+            <h3>Agent Pipeline</h3>
+            <div class="pipeline-steps" id="pipeline-steps">
+              <div class="pipe-step" data-step="0">
+                <div class="step-dot"></div>
+                <div class="step-content">
+                  <div class="step-name">Intake & Validation</div>
+                  <div class="step-desc">Normalize & validate fields</div>
+                </div>
+              </div>
+              <div class="pipe-connector"></div>
+              <div class="pipe-step" data-step="1">
+                <div class="step-dot"></div>
+                <div class="step-content">
+                  <div class="step-name">Enrichment</div>
+                  <div class="step-desc">Infer signals & metadata</div>
+                </div>
+              </div>
+              <div class="pipe-connector"></div>
+              <div class="pipe-step" data-step="2">
+                <div class="step-dot"></div>
+                <div class="step-content">
+                  <div class="step-name">Scoring</div>
+                  <div class="step-desc">Evaluate & score lead</div>
+                </div>
+              </div>
+              <div class="pipe-connector"></div>
+              <div class="pipe-step" data-step="3">
+                <div class="step-dot"></div>
+                <div class="step-content">
+                  <div class="step-name">Follow-up Generation</div>
+                  <div class="step-desc">Draft personalized messages</div>
+                </div>
+              </div>
+              <div class="pipe-connector"></div>
+              <div class="pipe-step" data-step="4">
+                <div class="step-dot"></div>
+                <div class="step-content">
+                  <div class="step-name">Webhook Dispatch</div>
+                  <div class="step-desc">Fire action trigger</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-icon">◎</div>
+            <h4>How it works</h4>
+            <p>Each lead passes through a 5-stage agent pipeline. The scoring engine uses <strong>configurable rules</strong> across 10+ signals including seniority, company size, email type, and intent.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: Results ═════════════════════════════════════════════════ -->
+    <section id="section-results" class="section hidden">
+      <div class="results-header">
+        <button class="btn-back" id="btn-back">← New Lead</button>
+        <div class="results-title-group">
+          <h1>Agent Report</h1>
+          <div class="result-meta" id="result-meta"></div>
+        </div>
+        <div class="results-actions">
+          <button class="btn-ghost" id="btn-export-json">Export JSON</button>
+        </div>
+      </div>
+
+      <!-- Score Hero -->
+      <div class="score-hero" id="score-hero">
+        <div class="score-ring-wrap">
+          <svg class="score-ring" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="50" />
+            <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="50"
+              stroke-dasharray="314" stroke-dashoffset="314" />
+          </svg>
+          <div class="score-center">
+            <div class="score-number" id="score-number">—</div>
+            <div class="score-label">Score</div>
+          </div>
+        </div>
+        <div class="score-details">
+          <div class="score-category" id="score-category">—</div>
+          <div class="score-temp" id="score-temp">—</div>
+          <div class="score-reasons" id="score-reasons"></div>
+        </div>
+      </div>
+
+      <!-- Result Panels -->
+      <div class="results-grid">
+        <!-- Lead Data -->
+        <div class="result-card" id="card-lead">
+          <div class="card-header">
+            <span class="card-icon">02</span>
+            <h2>Normalized Lead</h2>
+          </div>
+          <div class="data-grid" id="lead-data"></div>
+        </div>
+
+        <!-- Enrichment -->
+        <div class="result-card" id="card-enrichment">
+          <div class="card-header">
+            <span class="card-icon">03</span>
+            <h2>Enrichment</h2>
+          </div>
+          <div class="data-grid" id="enrichment-data"></div>
+          <div class="tags-wrap" id="enrichment-tags"></div>
+        </div>
+
+        <!-- Follow-up -->
+        <div class="result-card wide" id="card-followup">
+          <div class="card-header">
+            <span class="card-icon">04</span>
+            <h2>Follow-up Messages</h2>
+            <button class="btn-ghost" id="btn-copy-followup">Copy Short Message</button>
+          </div>
+          <div class="followup-tabs">
+            <button class="tab-btn active" data-tab="short">Short</button>
+            <button class="tab-btn" data-tab="formal">Formal</button>
+          </div>
+          <div class="followup-content">
+            <div class="followup-subject" id="followup-subject"></div>
+            <div class="followup-body" id="followup-body"></div>
+            <div class="followup-cta" id="followup-cta"></div>
+          </div>
+        </div>
+
+        <!-- Scoring Breakdown -->
+        <div class="result-card" id="card-breakdown">
+          <div class="card-header">
+            <span class="card-icon">05</span>
+            <h2>Score Breakdown</h2>
+          </div>
+          <div id="breakdown-list"></div>
+        </div>
+
+        <!-- Webhook Status -->
+        <div class="result-card" id="card-webhook">
+          <div class="card-header">
+            <span class="card-icon">06</span>
+            <h2>Webhook Status</h2>
+          </div>
+          <div id="webhook-status"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SECTION: History ═════════════════════════════════════════════════ -->
+    <section id="section-history" class="section hidden">
+      <div class="section-header">
+        <h1>Lead History</h1>
+        <p class="section-sub">Last 20 processed leads</p>
+      </div>
+      <div class="history-card">
+        <div class="table-wrap">
+          <table class="history-table" id="history-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Company</th>
+                <th>Email</th>
+                <th>Score</th>
+                <th>Category</th>
+                <th>Temp</th>
+                <th>Webhook</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="history-tbody">
+              <tr><td colspan="8" class="empty-state">No leads yet. Process your first lead!</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Toast ──────────────────────────────────────────────────────────────── -->
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
