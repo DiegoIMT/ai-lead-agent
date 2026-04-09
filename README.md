@@ -276,26 +276,6 @@ The enrichment layer is designed to be swapped out:
 
 ---
 
-## 🎬 Demo Script (1 minute)
-
-> Use this for live demos or screen recordings:
-
-1. **Intro (0–10s):** "This is an AI Lead Qualification Agent — it processes a sales lead through a 5-stage pipeline automatically."
-
-2. **Load sample (10–20s):** Click *Load Sample* → show the form filled with a high-intent lead from a VP at a SaaS company.
-
-3. **Submit (20–30s):** Click *Run Agent Pipeline* → point to the animated pipeline steps running in real-time.
-
-4. **Results (30–50s):** Walk through the results panel:
-   - Score ring animation → "84/100, High category"
-   - Enrichment tags → "Detected as B2B, decision-maker, hot lead"
-   - Follow-up tab → "Generated subject line and personalized email"
-   - Webhook status → "Fired and acknowledged internally"
-
-5. **Close (50–60s):** "This is fully local, no external APIs required. The scoring rules are in a single config file. The follow-up layer is LLM-ready with OpenAI. The webhook fires to any endpoint you configure."
-
----
-
 ## 🔮 Future Ideas
 
 - [ ] Connect real CRM (HubSpot, Salesforce, Pipedrive)
@@ -313,7 +293,7 @@ The enrichment layer is designed to be swapped out:
 
 ## 📄 License
 
-MIT © 2025
+DIMT © 2026
 
 ---
 
